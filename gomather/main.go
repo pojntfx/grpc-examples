@@ -13,6 +13,9 @@ import (
 
 func main() {
 	laddr := os.Getenv("LADDR")
+	if laddr == "" {
+		laddr = "0.0.0.0:5000"
+	}
 
 	lis, err := net.Listen("tcp", laddr)
 	if err != nil {
