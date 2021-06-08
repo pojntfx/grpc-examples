@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using Com.Pojtinger.Felix.GrpcExamples.Gomather;
+using Com.Pojtinger.Felix.GrpcExamples;
 using Grpc.Core;
 
 namespace MatherNet

@@ -5,11 +5,11 @@ require 'google/protobuf'
 
 Google::Protobuf::DescriptorPool.generated_pool.build do
   add_file("proto/mather.proto", :syntax => :proto3) do
-    add_message "com.pojtinger.felix.grpcExamples.gomather.AddInputMessage" do
+    add_message "com.pojtinger.felix.grpcExamples.AddInputMessage" do
       optional :FirstSummand, :int64, 1
       optional :SecondSummand, :int64, 2
     end
-    add_message "com.pojtinger.felix.grpcExamples.gomather.AddOutputMessage" do
+    add_message "com.pojtinger.felix.grpcExamples.AddOutputMessage" do
       optional :Sum, :int64, 1
     end
   end
@@ -19,10 +19,8 @@ module Com
   module Pojtinger
     module Felix
       module GrpcExamples
-        module Gomather
-          AddInputMessage = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("com.pojtinger.felix.grpcExamples.gomather.AddInputMessage").msgclass
-          AddOutputMessage = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("com.pojtinger.felix.grpcExamples.gomather.AddOutputMessage").msgclass
-        end
+        AddInputMessage = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("com.pojtinger.felix.grpcExamples.AddInputMessage").msgclass
+        AddOutputMessage = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("com.pojtinger.felix.grpcExamples.AddOutputMessage").msgclass
       end
     end
   end

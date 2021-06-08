@@ -10,8 +10,7 @@
   },
   "dependencies": {
     "@grpc/grpc-js": "^1.3.2",
-    "google-protobuf": "^3.17.2",
-    "grpc-node-server-reflection": "^1.0.2"
+    "google-protobuf": "^3.17.2"
   },
   "devDependencies": {
     "grpc-tools": "^1.11.1"

@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package com.pojtinger.felix.grpcExamples.gomather;
+package com.pojtinger.felix.grpcExamples;
 
 option go_package = "github.com/pojntfx/grpc-examples/gomather/pkg/api/proto/v1";
 
