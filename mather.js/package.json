@@ -1,0 +1,19 @@
+{
+  "name": "mather.js",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "AGPL-3.0",
+  "scripts": {
+    "start": "node main.js",
+    "generate": "grpc_tools_node_protoc --js_out=import_style=commonjs,binary:. --grpc_out=grpc_js:. proto/mather.proto",
+    "clean": "rm proto/*.js"
+  },
+  "dependencies": {
+    "@grpc/grpc-js": "^1.3.2",
+    "google-protobuf": "^3.17.2",
+    "grpc-node-server-reflection": "^1.0.2"
+  },
+  "devDependencies": {
+    "grpc-tools": "^1.11.1"
+  }
+}
