@@ -11,7 +11,7 @@ from grpc_reflection.v1alpha import reflection
 if __name__ == '__main__':
     laddr = os.getenv("LADDR")
     if (laddr == None):
-        laddr = "localhost:5000"
+        laddr = "0.0.0.0:5000"
 
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     add_MatherServicer_to_server(Mather(), server)
