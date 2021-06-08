@@ -1,0 +1,51 @@
+name: hydrun CI
+
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: "0 0 * * 0"
+
+jobs:
+  build-linux:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        project:
+          - gomather
+          - mather-rb
+          - mather-rs
+          - mather.js
+          - MatherNet
+          - pymather
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      - name: Set up Swap
+        run: |
+          sudo fallocate -l 15g /compile.swap
+          sudo chmod 600 /compile.swap
+          sudo mkswap /compile.swap
+          sudo swapon /compile.swap
+          sudo swapon --all --verbose
+      - name: Set up hydrun
+        run: |
+          curl -L -o /tmp/hydrun https://github.com/pojntfx/hydrun/releases/download/latest/hydrun.linux-$(uname -m)
+          sudo install /tmp/hydrun /usr/local/bin
+      - name: Build with hydrun
+        working-directory: ${{ matrix.project }}
+        run: hydrun -a amd64 ./Hydrunfile # TODO: Enable ARM64, armhf won't be supported
+      - name: Publish to GitHub releases
+        if: ${{ github.ref == 'refs/heads/main' }}
+        uses: marvinpinto/action-automatic-releases@latest
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "${{ matrix.project }}-latest"
+          prerelease: false
+          files: |
+            ${{ matrix.project }}/staging/*
