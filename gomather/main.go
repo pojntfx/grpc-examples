@@ -4,6 +4,7 @@ import (
 	"log"
 	"net"
 	"os"
+	"strconv"
 
 	api "github.com/pojntfx/grpc-examples/gomather/pkg/api/proto/v1"
 	"github.com/pojntfx/grpc-examples/gomather/pkg/services"
@@ -17,6 +18,16 @@ func main() {
 		laddr = "0.0.0.0:5000"
 	}
 
+	multiplierRaw := os.Getenv("MULTIPLIER")
+	if multiplierRaw == "" {
+		multiplierRaw = "1"
+	}
+
+	multiplier, err := strconv.Atoi(multiplierRaw)
+	if err != nil {
+		panic(err)
+	}
+
 	lis, err := net.Listen("tcp", laddr)
 	if err != nil {
 		panic(err)
@@ -24,7 +35,9 @@ func main() {
 
 	srv := grpc.NewServer()
 	reflection.Register(srv)
-	api.RegisterMatherServer(srv, &services.MatherService{})
+	api.RegisterMatherServer(srv, &services.MatherService{
+		Multiplier: int64(multiplier),
+	})
 
 	log.Println("Listening on", laddr)
 

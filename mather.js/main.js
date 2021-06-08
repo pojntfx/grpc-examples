@@ -7,8 +7,13 @@ if (!laddr) {
   laddr = "0.0.0.0:5000";
 }
 
+let multiplier = process.env.MULTIPLIER;
+if (!multiplier) {
+  multiplier = "1";
+}
+
 const server = new grpc.Server();
-server.addService(services.MatherService, matherService);
+server.addService(services.MatherService, matherService(parseInt(multiplier)));
 server.bindAsync(laddr, grpc.ServerCredentials.createInsecure(), () => {
   console.log(`Listening on ${laddr}`);
 

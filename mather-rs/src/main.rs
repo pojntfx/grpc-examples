@@ -8,7 +8,9 @@ pub mod mather_rs {
 }
 
 #[derive(Debug, Default)]
-pub struct MyMather {}
+pub struct MyMather {
+    multiplier: i64,
+}
 
 #[tonic::async_trait]
 impl Mather for MyMather {
@@ -19,7 +21,7 @@ impl Mather for MyMather {
         let aim = request.into_inner();
 
         let reply = mather_rs::AddOutputMessage {
-            sum: aim.first_summand + aim.second_summand,
+            sum: (aim.first_summand + aim.second_summand) * self.multiplier,
         };
 
         Ok(Response::new(reply))
@@ -28,16 +30,20 @@ impl Mather for MyMather {
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let laddr = std::env::var("LADDR")
-        .unwrap_or("0.0.0.0:5000".to_string())
-        .parse()?;
-    let mather = MyMather::default();
+    let laddr = std::env::var("LADDR").unwrap_or("0.0.0.0:5000".to_string());
+
+    let multiplier_raw = std::env::var("MULTIPLIER").unwrap_or("1".to_string());
+
+    let multiplier = multiplier_raw.parse::<i64>().unwrap();
+
+    let mut mather = MyMather::default();
+    mather.multiplier = multiplier;
 
     println!("Listening on {}", laddr);
 
     Server::builder()
         .add_service(MatherServer::new(mather))
-        .serve(laddr)
+        .serve(laddr.parse()?)
         .await?;
 
     Ok(())
