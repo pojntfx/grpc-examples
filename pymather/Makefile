@@ -27,7 +27,7 @@ dev:
 	python3 main.py
 
 clean:
-	rm -rf pymather/proto/mather*.py
+	rm pymather/proto/mather*.py
 	rm -rf out
 
 depend:

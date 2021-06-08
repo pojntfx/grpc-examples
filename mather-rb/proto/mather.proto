@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package com.pojtinger.felix.grpcExamples.gomather;
+
+option go_package = "github.com/pojntfx/grpc-examples/gomather/pkg/api/proto/v1";
+
+service Mather {
+  rpc Add(AddInputMessage) returns (AddOutputMessage);
+}
+
+message AddInputMessage {
+    int64 FirstSummand = 1;
+    int64 SecondSummand = 2;
+}
+
+message AddOutputMessage {
+    int64 Sum = 1;
+}
