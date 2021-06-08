@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# Install native dependencies
+apt update
+apt install -y curl make sudo build-essential protobuf-compiler
+
+# Install Node
+curl -fsSL https://deb.nodesource.com/setup_14.x | bash -
+apt install -y nodejs build-essential
+
+# Install Yarn
+npm install -g --unsafe-perm yarn
+
+# Install dependencies
+USER=root make depend
+
+# Make release
+make release
