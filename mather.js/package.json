@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node main.js",
     "generate": "grpc_tools_node_protoc --js_out=import_style=commonjs,binary:. --grpc_out=grpc_js:. proto/mather.proto",
-    "clean": "rm -rf out proto/*.js",
+    "clean": "rm proto/*.js; rm -rf out",
     "build": "pkg -t host -o out/mather.js.linux-$(uname -m) ."
   },
   "dependencies": {

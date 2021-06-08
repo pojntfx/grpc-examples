@@ -15,7 +15,7 @@ class MatherStub(object):
             channel: A grpc.Channel.
         """
         self.Add = channel.unary_unary(
-                '/com.pojtinger.felix.grpcExamples.gomather.Mather/Add',
+                '/com.pojtinger.felix.grpcExamples.Mather/Add',
                 request_serializer=pymather_dot_proto_dot_mather__pb2.AddInputMessage.SerializeToString,
                 response_deserializer=pymather_dot_proto_dot_mather__pb2.AddOutputMessage.FromString,
                 )
@@ -40,7 +40,7 @@ def add_MatherServicer_to_server(servicer, server):
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'com.pojtinger.felix.grpcExamples.gomather.Mather', rpc_method_handlers)
+            'com.pojtinger.felix.grpcExamples.Mather', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
 
 
@@ -59,7 +59,7 @@ class Mather(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/com.pojtinger.felix.grpcExamples.gomather.Mather/Add',
+        return grpc.experimental.unary_unary(request, target, '/com.pojtinger.felix.grpcExamples.Mather/Add',
             pymather_dot_proto_dot_mather__pb2.AddInputMessage.SerializeToString,
             pymather_dot_proto_dot_mather__pb2.AddOutputMessage.FromString,
             options, channel_credentials,

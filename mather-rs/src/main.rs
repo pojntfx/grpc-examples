@@ -4,7 +4,7 @@ use mather_rs::mather_server::{Mather, MatherServer};
 use mather_rs::{AddInputMessage, AddOutputMessage};
 
 pub mod mather_rs {
-    tonic::include_proto!("com.pojtinger.felix.grpc_examples.gomather");
+    tonic::include_proto!("com.pojtinger.felix.grpc_examples");
 }
 
 #[derive(Debug, Default)]
