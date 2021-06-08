@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# Install native dependencies
+apt update
+apt install -y curl make sudo build-essential protobuf-compiler python3 python3-pip patchelf
+
+# Fix certificate authorities on armv7
+export SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt
+
+# Setup Python
+export PATH="$PATH:/root/.local/bin"
+
+# Install dependencies
+USER=root make depend
+
+# Make release
+make release
