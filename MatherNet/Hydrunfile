@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# Install native dependencies
+apt update
+apt install -y curl make sudo build-essential protobuf-compiler libicu63
+
+# Fix certificate authorities on armv7
+export SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt
+
+# Install C#
+curl -L https://dot.net/v1/dotnet-install.sh | bash -s -- -c Current
+export DOTNET_ROOT="/root/.dotnet"
+export PATH="$PATH:/root/.dotnet::/root/.dotnet/tools"
+
+# Install dependencies
+USER=root make depend
+
+# Make release
+make release

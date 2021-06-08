@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# Install native dependencies
+apt update
+apt install -y curl make sudo build-essential protobuf-compiler
+
+# Fix certificate authorities on armv7
+export SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt
+
+# Install Go
+VERSION=1.16.5
+FILE=/tmp/go.tar.gz
+if [ "$(uname -m)" = 'x86_64' ]; then
+    curl -L -o ${FILE} https://golang.org/dl/go${VERSION}.linux-amd64.tar.gz
+elif [ "$(uname -m)" = 'armv7l' ]; then
+    curl -L -o ${FILE} https://golang.org/dl/go${VERSION}.linux-armv6l.tar.gz
+else
+    curl -L -o ${FILE} https://golang.org/dl/go${VERSION}.linux-arm64.tar.gz
+fi
+tar -C /usr/local -xzf ${FILE}
+export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin
+
+# Install dependencies
+USER=root make depend
+
+# Make release
+make release
