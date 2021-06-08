@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -8,6 +10,13 @@ namespace MatherNet
 {
     public class Startup
     {
+        private readonly IConfiguration Configuration;
+
+        public Startup(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
+
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddGrpc();
@@ -16,6 +25,13 @@ namespace MatherNet
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            var multiplier = Environment.GetEnvironmentVariable("MULTIPLIER");
+            if (string.IsNullOrEmpty(multiplier))
+            {
+                multiplier = "1";
+            }
+            Configuration["Multiplier"] = multiplier;
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

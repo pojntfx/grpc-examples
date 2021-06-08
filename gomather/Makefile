@@ -10,7 +10,7 @@ install: release
 	sudo install out/release/gomather.linux-$$(uname -m) /usr/local/bin/gomather
 	
 dev:
-	while [ -z "$$PID" ] || [ -n "$$(inotifywait -q -r -e modify pkg cmd main.go)" ]; do\
+	while [ -z "$$PID" ] || [ -n "$$(inotifywait -q -r -e modify pkg main.go)" ]; do\
 		$(MAKE);\
 		kill -9 $$PID 2>/dev/null 1>&2;\
 		wait $$PID;\

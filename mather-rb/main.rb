@@ -5,10 +5,11 @@ require 'grpc'
 require 'mather'
 
 laddr = ENV['LADDR'] || '0.0.0.0:5000'
+multiplier = ENV['MULTIPLIER'] || '1'
 
 srv = GRPC::RpcServer.new
 srv.add_http2_port(laddr, :this_port_is_insecure)
-srv.handle(MatherService)
+srv.handle(MatherService.new multiplier)
 
 puts "Listening on #{laddr}"
 

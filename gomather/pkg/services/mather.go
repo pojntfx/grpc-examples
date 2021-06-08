@@ -10,10 +10,12 @@ import (
 
 type MatherService struct {
 	api.UnimplementedMatherServer
+
+	Multiplier int64
 }
 
 func (s *MatherService) Add(_ context.Context, aim *api.AddInputMessage) (*api.AddOutputMessage, error) {
 	return &api.AddOutputMessage{
-		Sum: aim.FirstSummand + aim.SecondSummand,
+		Sum: (aim.FirstSummand + aim.SecondSummand) * s.Multiplier,
 	}, nil
 }

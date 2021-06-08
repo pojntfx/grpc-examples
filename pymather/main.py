@@ -13,8 +13,12 @@ if __name__ == '__main__':
     if (laddr == None):
         laddr = "0.0.0.0:5000"
 
+    multiplier = os.getenv("MULTIPLIER")
+    if (multiplier == None):
+        multiplier = "1"
+
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
-    add_MatherServicer_to_server(Mather(), server)
+    add_MatherServicer_to_server(Mather(int(multiplier)), server)
 
     SERVICE_NAMES = (
         DESCRIPTOR.services_by_name['Mather'].full_name,

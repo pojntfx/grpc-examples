@@ -6,7 +6,11 @@ require 'proto/mather_pb'
 require 'grpc'
 
 class MatherService < Com::Pojtinger::Felix::GrpcExamples::Mather::Service
+    def initialize(multiplier)
+        @multiplier = multiplier.to_i
+    end
+
     def add(req, _)
-        Com::Pojtinger::Felix::GrpcExamples::AddOutputMessage.new(Sum: req.FirstSummand + req.SecondSummand)
+        Com::Pojtinger::Felix::GrpcExamples::AddOutputMessage.new(Sum: (req.FirstSummand + req.SecondSummand) * @multiplier)
     end
 end
