@@ -13,7 +13,7 @@ jobs:
       matrix:
         project:
           - gomather
-          - mather-rb
+          # - mather-rb
           - mather-rs
           - mather.js
           - MatherNet
@@ -40,12 +40,18 @@ jobs:
       - name: Build with hydrun
         working-directory: ${{ matrix.project }}
         run: hydrun -a amd64 ./Hydrunfile # TODO: Enable ARM64, armhf won't be supported
-      - name: Publish to GitHub releases
-        if: ${{ github.ref == 'refs/heads/main' }}
-        uses: marvinpinto/action-automatic-releases@latest
+      - name: Archive output
+        uses: actions/upload-artifact@v2
         with:
-          repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: "${{ matrix.project }}-latest"
-          prerelease: false
-          files: |
+          name: staging-${{ matrix.project }}
+          path: |
             ${{ matrix.project }}/staging/*
+      # - name: Publish to GitHub releases
+      #   if: ${{ github.ref == 'refs/heads/main' }}
+      #   uses: marvinpinto/action-automatic-releases@latest
+      #   with:
+      #     repo_token: "${{ secrets.GITHUB_TOKEN }}"
+      #     automatic_release_tag: "${{ matrix.project }}-latest"
+      #     prerelease: false
+      #     files: |
+      #       ${{ matrix.project }}/staging/*
