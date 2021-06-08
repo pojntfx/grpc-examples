@@ -5,8 +5,8 @@ require 'proto/mather_services_pb'
 require 'proto/mather_pb'
 require 'grpc'
 
-class MatherService < Com::Pojtinger::Felicitas::GrpcExamples::Gomather::Mather::Service
+class MatherService < Com::Pojtinger::Felicitas::GrpcExamples::Mather::Service
     def add(req, _)
-        Com::Pojtinger::Felicitas::GrpcExamples::Gomather::AddOutputMessage.new(Sum: req.FirstSummand + req.SecondSummand)
+        Com::Pojtinger::Felicitas::GrpcExamples::AddOutputMessage.new(Sum: req.FirstSummand + req.SecondSummand)
     end
 end
