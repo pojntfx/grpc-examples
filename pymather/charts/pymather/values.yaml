@@ -1,0 +1,16 @@
+app:
+  multiplier: 1
+
+meta:
+  image: pojntfx/pymather:{{ .Chart.AppVersion }}
+  dev: false
+
+resources:
+  memory: "128Mi"
+  cpu: "512m"
+  maxReplicas: 10
+
+ingress:
+  nodePort: 30005
+  domain: pymather.example.com
+  path: /

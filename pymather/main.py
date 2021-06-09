@@ -10,11 +10,11 @@ from grpc_reflection.v1alpha import reflection
 
 if __name__ == '__main__':
     laddr = os.getenv("LADDR")
-    if (laddr == None):
+    if not laddr:
         laddr = "0.0.0.0:5000"
 
     multiplier = os.getenv("MULTIPLIER")
-    if (multiplier == None):
+    if not multiplier:
         multiplier = "1"
 
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
