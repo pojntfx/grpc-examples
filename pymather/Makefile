@@ -12,13 +12,9 @@ build:
 	cp /tmp/out/pymather.linux-$$(uname -m) out
 
 release: build
-	# Create statically-linked binary
-	mkdir -p /tmp/out/release
-	staticx /tmp/out/pymather.linux-$$(uname -m) /tmp/out/release/pymather.linux-$$(uname -m)
-
 	# Stage statically-linked binaries
 	mkdir -p out/release
-	cp /tmp/out/release/pymather.linux-$$(uname -m) out/release
+	cp out/pymather.linux-$$(uname -m) out/release
 
 install: release
 	sudo install out/release/pymather.linux-$$(uname -m) /usr/local/bin/pymather
@@ -36,7 +32,6 @@ depend:
 
 	# Install python development dependencies
 	pip3 install pyinstaller
-	pip3 install staticx
 
 	# Generate Protobufs
 	python3 -m grpc_tools.protoc -I. --python_out=. --grpc_python_out=. ./pymather/proto/mather.proto
