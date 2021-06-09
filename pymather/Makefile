@@ -27,6 +27,9 @@ clean:
 	rm -rf out
 
 depend:
+	# Update pip for much faster grpcio builds
+	pip3 install --upgrade pip
+
 	# Install dependencies
 	pip3 install -r requirements.txt
 
