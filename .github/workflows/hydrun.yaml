@@ -14,14 +14,19 @@ jobs:
         project:
           - { dir: gomather, arch: amd64 }
           - { dir: gomather, arch: arm64 }
-          # - { dir: mather-rb, arch: amd64 }
+          - { dir: gomather, arch: arm/v7 }
           - { dir: mather-rs, arch: amd64 }
           - { dir: mather-rs, arch: arm64 }
+          - { dir: mather-rs, arch: arm/v7 }
           - { dir: mather.js, arch: amd64 }
           - { dir: mather.js, arch: arm64 }
+          - { dir: mather.js, arch: arm/v7 }
           - { dir: MatherNet, arch: amd64 }
+          - { dir: MatherNet, arch: arm64 }
+          - { dir: MatherNet, arch: arm/v7 }
           - { dir: pymather, arch: amd64 }
           - { dir: pymather, arch: arm64 }
+          - { dir: pymather, arch: arm/v7 }
 
     steps:
       - name: Checkout
@@ -30,13 +35,6 @@ jobs:
         uses: docker/setup-qemu-action@v1
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
-      - name: Set up Swap
-        run: |
-          sudo fallocate -l 5g /compile.swap
-          sudo chmod 600 /compile.swap
-          sudo mkswap /compile.swap
-          sudo swapon /compile.swap
-          sudo swapon --all --verbose
       - name: Set up hydrun
         run: |
           curl -L -o /tmp/hydrun https://github.com/pojntfx/hydrun/releases/download/latest/hydrun.linux-$(uname -m)
