@@ -17,7 +17,7 @@ jobs:
           - mather-rs
           - mather.js
           - MatherNet
-          # - pymather
+          - pymather
 
     steps:
       - name: Checkout
@@ -39,8 +39,8 @@ jobs:
           sudo install /tmp/hydrun /usr/local/bin
       - name: Build with hydrun
         working-directory: ${{ matrix.project }}
-        run: hydrun -a amd64 ./Hydrunfile # TODO: Enable ARM64, armhf won't be supported
-      - name: Fix permissions for built binary
+        run: hydrun -a amd64,arm64 ./Hydrunfile
+      - name: Fix permissions for output
         working-directory: ${{ matrix.project }}
         run: sudo chown -R $USER out
       - name: Upload output
@@ -61,14 +61,12 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           path: /tmp/out
-      - name: Display structure of downloaded files
-        run: ls -R
       - name: Publish to GitHub releases
         if: ${{ github.ref == 'refs/heads/main' }}
         uses: marvinpinto/action-automatic-releases@latest
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: latest"
+          automatic_release_tag: latest
           prerelease: false
           files: |
             /tmp/out/**/*
