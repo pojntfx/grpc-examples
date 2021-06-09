@@ -65,7 +65,7 @@ jobs:
     strategy:
       matrix:
         project:
-          - { dir: gomather/charts/gomather }
+          - { dir: gomather }
 
     steps:
       - name: Checkout
