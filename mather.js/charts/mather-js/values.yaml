@@ -2,7 +2,7 @@ app:
   multiplier: 1
 
 meta:
-  image: pojntfx/mather-js:0.0.2
+  image: pojntfx/mather-js:0.0.3
   dev: false
 
 resources:
