@@ -73,5 +73,9 @@ jobs:
       - name: Build and publish chart
         uses: stefanprodan/helm-gh-pages@master
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.HELM_REPO_GITHUB_TOKEN }}
           charts_dir: ${{ matrix.project.dir }}
+          charts_url: https://pojntfx.github.io/charts/
+          owner: pojntfx
+          repository: charts
+          branch: gh-pages
