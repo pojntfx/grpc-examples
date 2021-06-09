@@ -1,0 +1,46 @@
+apiVersion: skaffold/v2beta16
+kind: Config
+metadata:
+  name: gomather
+profiles:
+  - name: gomather
+    build:
+      artifacts:
+        - image: pojntfx/gomather
+          context: .
+          docker:
+            dockerfile: Dockerfile
+      local:
+        useBuildkit: true
+    deploy:
+      helm:
+        releases:
+          - name: gomather
+            chartPath: charts/gomather
+            artifactOverrides:
+              meta.image: pojntfx/gomather
+            setValueTemplates:
+              app.multiplier: "{{ .MULTIPLIER }}"
+  - name: gomather-dev
+    build:
+      artifacts:
+        - image: pojntfx/gomather-dev
+          context: .
+          docker:
+            dockerfile: Deverfile
+          sync:
+            infer:
+              - "**/*.go"
+      local:
+        useBuildkit: true
+    deploy:
+      helm:
+        releases:
+          - name: gomather-dev
+            chartPath: charts/gomather
+            artifactOverrides:
+              meta.image: pojntfx/gomather-dev
+            setValues:
+              meta.dev: true
+            setValueTemplates:
+              app.multiplier: "{{ .MULTIPLIER }}"
