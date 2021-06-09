@@ -6,7 +6,7 @@
   "bin": "main.js",
   "scripts": {
     "start": "node main.js",
-    "dev": "babel-watch main.js",
+    "dev": "nodemon main.js",
     "generate": "grpc_tools_node_protoc --js_out=import_style=commonjs,binary:. --grpc_out=grpc_js:. proto/mather.proto",
     "clean": "rm proto/*.js; rm -rf out",
     "build": "pkg -t host -o out/mather.js.linux-$(uname -m) ."
@@ -16,9 +16,8 @@
     "google-protobuf": "^3.17.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.14.3",
-    "babel-watch": "^7.4.1",
     "grpc-tools": "^1.11.1",
+    "nodemon": "^2.0.7",
     "pkg": "^5.2.1"
   },
   "pkg": {
