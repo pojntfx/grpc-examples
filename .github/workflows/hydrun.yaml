@@ -40,6 +40,9 @@ jobs:
       - name: Build with hydrun
         working-directory: ${{ matrix.project }}
         run: hydrun -a amd64 ./Hydrunfile # TODO: Enable ARM64, armhf won't be supported
+      - name: Fix permissions for built binary
+        working-directory: ${{ matrix.project }}
+        run: sudo chown -R $USER out
       - name: Upload output
         uses: actions/upload-artifact@v2
         with:
@@ -58,12 +61,12 @@ jobs:
         uses: actions/download-artifact@v2
       - name: Display structure of downloaded files
         run: ls -R
-      # - name: Publish to GitHub releases
-      #   if: ${{ github.ref == 'refs/heads/main' }}
-      #   uses: marvinpinto/action-automatic-releases@latest
-      #   with:
-      #     repo_token: "${{ secrets.GITHUB_TOKEN }}"
-      #     automatic_release_tag: latest"
-      #     prerelease: false
-      #     files: |
-      #       **/*
+      - name: Publish to GitHub releases
+        if: ${{ github.ref == 'refs/heads/main' }}
+        uses: marvinpinto/action-automatic-releases@latest
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: latest"
+          prerelease: false
+          files: |
+            **/*
