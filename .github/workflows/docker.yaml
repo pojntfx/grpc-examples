@@ -94,6 +94,10 @@ jobs:
       matrix:
         project:
           - gomather/charts
+          - mather-rs/charts
+          - mather-js/charts
+          - MatherNet/charts
+          - pymather/charts
 
     steps:
       - name: Checkout
