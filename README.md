@@ -1,6 +1,6 @@
 # gRPC Examples
 
-gRPC example microservices in Go, Rust, C#, Python, Ruby and JavaScript.
+gRPC example microservices in Go, Rust, C#, Python and JavaScript.
 
 ## Installation
 
