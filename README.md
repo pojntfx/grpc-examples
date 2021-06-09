@@ -16,7 +16,7 @@ Currently, the following example services have been added; please check out thei
 | ------------------------------------------------------------------------------------------------------------------------- | -------------------------- | ------------------------------- |
 | <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/go/go-original.svg" width="25">                 | **gomather (Go)**          | [README](./gomather/README.md)  |
 | <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/rust/rust-plain.svg" width="25">                | **mather-rs (Rust)**       | [README](./mather-rs/README.md) |
-| <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/csharp/csharp-original.svg" width="25">         | **MatherNew (C#)**         | [README](./MatherNet/README.md) |
+| <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/csharp/csharp-original.svg" width="25">         | **MatherNet (C#)**         | [README](./MatherNet/README.md) |
 | <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg" width="25">         | **pymather (Python)**      | [README](./pymather/README.md)  |
 | <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg" width="25"> | **mather.js (JavaScript)** | [README](./mather.js/README.md) |
 
