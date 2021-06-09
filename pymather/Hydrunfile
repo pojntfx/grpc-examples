@@ -13,5 +13,9 @@ export PATH="$PATH:/root/.local/bin"
 # Install dependencies
 USER=root make depend
 
-# Make release
-make release
+# Start development or make release
+if [ "$1" = 'dev' ]; then
+    make dev
+else
+    make release
+fi

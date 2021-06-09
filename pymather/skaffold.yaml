@@ -1,0 +1,46 @@
+apiVersion: skaffold/v2beta16
+kind: Config
+metadata:
+  name: pymather
+profiles:
+  - name: prod
+    build:
+      artifacts:
+        - image: pojntfx/pymather
+          context: .
+          docker:
+            dockerfile: Dockerfile
+      local:
+        useBuildkit: true
+    deploy:
+      helm:
+        releases:
+          - name: pymather
+            chartPath: charts/pymather
+            artifactOverrides:
+              meta.image: pojntfx/pymather
+            setValueTemplates:
+              app.multiplier: "{{ .MULTIPLIER }}"
+  - name: dev
+    build:
+      artifacts:
+        - image: pojntfx/pymather-dev
+          context: .
+          docker:
+            dockerfile: Deverfile
+          sync:
+            infer:
+              - "**/*.py"
+      local:
+        useBuildkit: true
+    deploy:
+      helm:
+        releases:
+          - name: pymather-dev
+            chartPath: charts/pymather
+            artifactOverrides:
+              meta.image: pojntfx/pymather-dev
+            setValues:
+              meta.dev: true
+            setValueTemplates:
+              app.multiplier: "{{ .MULTIPLIER }}"

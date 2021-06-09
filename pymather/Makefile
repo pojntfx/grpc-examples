@@ -20,7 +20,11 @@ install: release
 	sudo install out/release/pymather.linux-$$(uname -m) /usr/local/bin/pymather
 	
 dev:
-	python3 main.py
+	while [ -z "$$PID" ] || [ -n "$$(inotifywait -q -r -e modify main.py pymather)" ]; do\
+		kill -9 $$PID 2>/dev/null 1>&2;\
+		wait $$PID;\
+		python3 main.py & export PID="$$!";\
+	done
 
 clean:
 	rm pymather/proto/mather*.py
