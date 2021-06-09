@@ -50,11 +50,39 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_TOKEN }}
-      - name: Build and push image to Docker Hub
-        uses: docker/build-push-action@v2
+      # - name: Build and push image to Docker Hub
+      #   uses: docker/build-push-action@v2
+      #   with:
+      #     context: ${{ matrix.project.dir }}
+      #     file: ${{ matrix.project.dir }}/Dockerfile
+      #     platforms: ${{ matrix.project.arch }}
+      #     push: true
+      #     tags: ${{ matrix.project.image }}:latest
+
+  publish-linux:
+    runs-on: ubuntu-latest
+    needs: build-linux
+    strategy:
+      matrix:
+        project:
+          - {
+              name: gomather,
+              version: 0.0.1,
+              path: gomather/charts/gomather,
+              registry: ghcr.io,
+            }
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Build and publish chart to GitHub Container Registry
+        if: ${{ github.ref == 'refs/heads/main' }}
+        uses: appany/helm-oci-chart-releaser@v0.2.0
         with:
-          context: ${{ matrix.project.dir }}
-          file: ${{ matrix.project.dir }}/Dockerfile
-          platforms: ${{ matrix.project.arch }}
-          push: true
-          tags: ${{ matrix.project.image }}:latest
+          name: ${{ matrix.project.name }}
+          repository: ${{ github.repository_owner }}-${{ github.event.repository.name }}
+          tag: ${{ matrix.project.version }}
+          path: ${{ matrix.project.dir }}
+          registry: ${{ matrix.project.registry }}
+          registry_username: ${{ github.repository_owner }}
+          registry_password: ${{ secrets.GITHUB_TOKEN }}
