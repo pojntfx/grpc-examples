@@ -65,24 +65,13 @@ jobs:
     strategy:
       matrix:
         project:
-          - {
-              name: gomather,
-              version: 0.0.1,
-              dir: gomather/charts/gomather,
-              registry: ghcr.io,
-            }
+          - { dir: gomather/charts/gomather }
 
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Build and publish chart to GitHub Container Registry
-        if: ${{ github.ref == 'refs/heads/main' }}
-        uses: appany/helm-oci-chart-releaser@v0.2.0
+      - name: Build and publish chart
+        uses: stefanprodan/helm-gh-pages@master
         with:
-          name: ${{ matrix.project.name }}
-          repository: ${{ github.repository_owner }}-${{ github.event.repository.name }}
-          tag: ${{ matrix.project.version }}
-          path: ${{ matrix.project.dir }}
-          registry: ${{ matrix.project.registry }}
-          registry_username: ${{ github.repository_owner }}
-          registry_password: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          charts_dir: ${{ matrix.project.dir }}
