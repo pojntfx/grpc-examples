@@ -1,0 +1,46 @@
+apiVersion: skaffold/v2beta16
+kind: Config
+metadata:
+  name: mather-js
+profiles:
+  - name: prod
+    build:
+      artifacts:
+        - image: pojntfx/mather-js
+          context: .
+          docker:
+            dockerfile: Dockerfile
+      local:
+        useBuildkit: true
+    deploy:
+      helm:
+        releases:
+          - name: mather-js
+            chartPath: charts/mather-js
+            artifactOverrides:
+              meta.image: pojntfx/mather-js
+            setValueTemplates:
+              app.multiplier: "{{ .MULTIPLIER }}"
+  - name: dev
+    build:
+      artifacts:
+        - image: pojntfx/mather-js-dev
+          context: .
+          docker:
+            dockerfile: Deverfile
+          sync:
+            infer:
+              - "**/*.js"
+      local:
+        useBuildkit: true
+    deploy:
+      helm:
+        releases:
+          - name: mather-js-dev
+            chartPath: charts/mather-js
+            artifactOverrides:
+              meta.image: pojntfx/mather-js-dev
+            setValues:
+              meta.dev: true
+            setValueTemplates:
+              app.multiplier: "{{ .MULTIPLIER }}"

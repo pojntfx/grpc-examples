@@ -13,7 +13,7 @@ install: release
 	sudo install out/release/mather.js.linux-$$(uname -m) /usr/local/bin/mather.js
 	
 dev:
-	yarn start
+	yarn dev
 
 clean:
 	yarn clean
