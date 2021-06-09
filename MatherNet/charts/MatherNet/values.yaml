@@ -1,0 +1,16 @@
+app:
+  multiplier: 1
+
+meta:
+  image: pojntfx/mathernet:{{ .Chart.AppVersion }}
+  dev: false
+
+resources:
+  memory: "128Mi"
+  cpu: "512m"
+  maxReplicas: 10
+
+ingress:
+  nodePort: 30005
+  domain: mathernet.example.com
+  path: /

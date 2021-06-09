@@ -1,0 +1,46 @@
+apiVersion: skaffold/v2beta16
+kind: Config
+metadata:
+  name: mathernet
+profiles:
+  - name: prod
+    build:
+      artifacts:
+        - image: pojntfx/mathernet
+          context: .
+          docker:
+            dockerfile: Dockerfile
+      local:
+        useBuildkit: true
+    deploy:
+      helm:
+        releases:
+          - name: mathernet
+            chartPath: charts/MatherNet
+            artifactOverrides:
+              meta.image: pojntfx/mathernet
+            setValueTemplates:
+              app.multiplier: "{{ .MULTIPLIER }}"
+  - name: dev
+    build:
+      artifacts:
+        - image: pojntfx/mathernet-dev
+          context: .
+          docker:
+            dockerfile: Deverfile
+          sync:
+            infer:
+              - "**/*.cs"
+      local:
+        useBuildkit: true
+    deploy:
+      helm:
+        releases:
+          - name: mathernet-dev
+            chartPath: charts/MatherNet
+            artifactOverrides:
+              meta.image: pojntfx/mathernet-dev
+            setValues:
+              meta.dev: true
+            setValueTemplates:
+              app.multiplier: "{{ .MULTIPLIER }}"
