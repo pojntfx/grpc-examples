@@ -30,9 +30,15 @@ impl Mather for MyMather {
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let laddr = std::env::var("LADDR").unwrap_or("0.0.0.0:5000".to_string());
+    let mut laddr = std::env::var("LADDR").unwrap_or("0.0.0.0:5000".to_string());
+    if laddr == "" {
+        laddr = "0.0.0.0:5000".to_string();
+    }
 
-    let multiplier_raw = std::env::var("MULTIPLIER").unwrap_or("1".to_string());
+    let mut multiplier_raw = std::env::var("MULTIPLIER").unwrap_or("1".to_string());
+    if multiplier_raw == "" {
+        multiplier_raw = "1".to_string();
+    }
 
     let multiplier = multiplier_raw.parse::<i64>().unwrap();
 

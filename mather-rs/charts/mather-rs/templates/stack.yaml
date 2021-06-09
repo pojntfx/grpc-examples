@@ -1,0 +1,104 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mather-rs{{ if .Values.meta.dev }}-dev{{ end }}
+data:
+  MULTIPLIER: "{{ .Values.app.multiplier }}"
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mather-rs{{ if .Values.meta.dev }}-dev{{ end }}
+spec:
+  selector:
+    matchLabels:
+      app: mather-rs{{ if .Values.meta.dev }}-dev{{ end }}
+  template:
+    metadata:
+      labels:
+        app: mather-rs{{ if .Values.meta.dev }}-dev{{ end }}
+    spec:
+      containers:
+        - name: mather-rs{{ if .Values.meta.dev }}-dev{{ end }}
+          image: {{ .Values.meta.image }}
+          envFrom:
+            - configMapRef:
+                name: mather-rs{{ if .Values.meta.dev }}-dev{{ end }}
+          {{ if not .Values.meta.dev }}
+          resources:
+            limits:
+              memory: {{ .Values.resources.memory }}
+              cpu: {{ .Values.resources.cpu }}
+          {{ end }}
+          ports:
+            - containerPort: 5000
+  {{ if .Values.meta.dev }}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mather-rs-dev
+spec:
+  selector:
+    app: mather-rs-dev
+  type: NodePort
+  ports:
+    - name: grpc
+      port: 5000
+      targetPort: 5000
+      nodePort: {{ .Values.ingress.nodePort }}
+  {{ else }}
+
+---
+apiVersion: autoscaling/v2beta1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: mather-rs
+spec:
+  maxReplicas: {{ .Values.resources.maxReplicas }}
+  minReplicas: 1
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: mather-rs
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        targetAverageUtilization: 60
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mather-rs
+spec:
+  selector:
+    app: mather-rs
+  ports:
+    - name: grpc
+      port: 5000
+      targetPort: 5000
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: mather-rs
+  annotations:
+    ingress.kubernetes.io/protocol: h2c
+spec:
+  rules:
+    - host: {{ .Values.ingress.domain }}
+      http:
+        paths:
+          - path: {{ .Values.ingress.path }}
+            pathType: Prefix
+            backend:
+              service:
+                name: mather-rs
+                port:
+                  name: grpc
+  {{ end }}
