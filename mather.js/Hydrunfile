@@ -4,6 +4,9 @@
 apt update
 apt install -y curl make sudo build-essential protobuf-compiler
 
+# Fix certificate authorities on armv7
+export SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt
+
 # Install Node
 curl -fsSL https://deb.nodesource.com/setup_14.x | bash -
 apt install -y nodejs build-essential
