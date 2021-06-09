@@ -1,6 +1,6 @@
 apiVersion: v2
 name: gomather
-version: "0.0.1"
+version: "0.0.2"
 description: Simple Go gRPC microservice that does math.
 type: application
 home: https://github.com/pojntfx/grpc-examples
@@ -10,4 +10,4 @@ maintainers:
   - name: Felicitas Pojtinger
     email: felicitas@pojtinger.com
     url: https://felicitas.pojtinger.com
-appVersion: "0.0.1"
+appVersion: "0.0.2"

@@ -95,7 +95,7 @@ jobs:
         project:
           - gomather/charts
           - mather-rs/charts
-          - mather-js/charts
+          - mather.js/charts
           - MatherNet/charts
           - pymather/charts
 

@@ -2,7 +2,7 @@ app:
   multiplier: 1
 
 meta:
-  image: pojntfx/mather-rs:{{ .Chart.AppVersion }}
+  image: pojntfx/mather-rs:0.0.2
   dev: false
 
 resources:
