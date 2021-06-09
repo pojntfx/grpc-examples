@@ -39,7 +39,7 @@ jobs:
           sudo install /tmp/hydrun /usr/local/bin
       - name: Build with hydrun
         working-directory: ${{ matrix.project }}
-        run: hydrun -a amd64,arm64 ./Hydrunfile
+        run: hydrun -a amd64 ./Hydrunfile
       - name: Fix permissions for output
         working-directory: ${{ matrix.project }}
         run: sudo chown -R $USER out
