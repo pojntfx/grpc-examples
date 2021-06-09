@@ -141,7 +141,7 @@ grpcurl --plaintext -d '{"FirstSummand": 1, "SecondSummand": 3}' localhost:5000 
 
 You can set the multiplier, which multiplies each sum, using the `MULTIPLIER` environment variable.
 
-If you're on Kubernetes, also check out the available [Helm chart values](./charts/mathernet/values.yaml) which you can use to adjust available resources, set the domain name and more.
+If you're on Kubernetes, also check out the available [Helm chart values](./charts/MatherNet/values.yaml) which you can use to adjust available resources, set the domain name and more.
 
 ### gRPC API
 
