@@ -1,13 +1,13 @@
 all: build
 
+TEMP_DIR := $(shell mktemp -d /tmp/.rubyc-build.XXXXXX)
+
 build:
 	# Create dynamically-linked binary
 	mkdir -p /tmp/out
-	rubyc bin/mather-rb -o /tmp/out/mather-rb.linux-$$(uname -m)
-
-	# Stage dynamically-linked binaries
-	mkdir -p out
-	cp /tmp/out/mather-rb.linux-$$(uname -m) out
+	cp -r * $(TEMP_DIR)
+	rubyc --clean-tmpdir -r "$(TEMP_DIR)" -o /tmp/out/mather-rb.linux-$$(uname -m) "$(TEMP_DIR)/main.rb"
+	strip /tmp/out/mather-rb.linux-$$(uname -m)
 
 release: build
 	# Create statically-linked binary
