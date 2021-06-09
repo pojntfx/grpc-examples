@@ -1,9 +1,9 @@
-# gomather
+# mather.js
 
-Simple Go gRPC microservice that does math.
+Simple JavaScript gRPC microservice that does math.
 
-[![Docker Pulls](https://img.shields.io/docker/pulls/pojntfx/gomather?label=docker%20pulls)](https://hub.docker.com/r/pojntfx/gomather)
-[![Binary Downloads](https://img.shields.io/github/downloads/pojntfx/grpc-examples/latest/gomather.linux-x86_64?label=binary%20downloads)](https://github.com/pojntfx/grpc-examples/releases)
+[![Docker Pulls](https://img.shields.io/docker/pulls/pojntfx/mather-js?label=docker%20pulls)](https://hub.docker.com/r/pojntfx/mather-js)
+[![Binary Downloads](https://img.shields.io/github/downloads/pojntfx/grpc-examples/latest/mather.js.linux-x86_64?label=binary%20downloads)](https://github.com/pojntfx/grpc-examples/releases)
 
 > Be sure to also check out the [other gRPC examples](../README.md) for more information on how to contribute and more!
 
@@ -22,7 +22,7 @@ $ helm repo add pojntfx https://pojntfx.github.io/charts/
 You can get the Docker container like so:
 
 ```shell
-$ docker pull pojntfx/gomather
+$ docker pull pojntfx/mather-js
 ```
 
 ### Natively
@@ -32,8 +32,8 @@ If you prefer a native installation, binaries are also available on [GitHub rele
 You can install them like so:
 
 ```shell
-$ curl -L -o /tmp/gomather https://github.com/pojntfx/grpc-examples/releases/latest/download/gomather.linux-$(uname -m)
-$ sudo install /tmp/gomather /usr/local/bin
+$ curl -L -o /tmp/mather.js https://github.com/pojntfx/grpc-examples/releases/latest/download/mather.js.linux-$(uname -m)
+$ sudo install /tmp/mather.js /usr/local/bin
 ```
 
 ## Usage
@@ -48,13 +48,13 @@ Helm is the easiest option to start the microservice on Kubernetes.
 Run the following; see the [Reference](#reference) for more configuration parameters:
 
 ```shell
-$ helm install gomather pojntfx/gomather --set app.multiplier=1
+$ helm install mather-js pojntfx/mather-js --set app.multiplier=1
 ```
 
 The logs are available like so:
 
 ```shell
-$ kubectl logs gomather
+$ kubectl logs mather-js
 ```
 
   </details>
@@ -70,18 +70,18 @@ Run the following; see the [Reference](#reference) for more configuration parame
 
 ```shell
 $ docker run \
-    --name gomather \
+    --name mather-js \
     -d \
     --restart always \
     -p 5000:5000 \
     -e MULTIPLIER=1 \
-    pojntfx/gomather
+    pojntfx/mather-js
 ```
 
 The logs are available like so:
 
 ```shell
-$ docker logs gomather
+$ docker logs mather-js
 ```
 
   </details>
@@ -97,13 +97,13 @@ First, create a systemd service for it; see the [Reference](#reference) for more
 
 ```shell
 $ mkdir -p ~/.config/systemd/user/
-$ cat <<EOT >~/.config/systemd/user/gomather.service
+$ cat <<EOT >~/.config/systemd/user/mather-js.service
 [Unit]
-Description=gomather
+Description=mather.js
 
 [Service]
 Environment="MULTIPLIER=1"
-ExecStart=/usr/local/bin/gomather
+ExecStart=/usr/local/bin/mather-js
 
 [Install]
 WantedBy=multi-user.target
@@ -114,13 +114,13 @@ Finally, reload systemd and enable the service:
 
 ```shell
 $ systemctl --user daemon-reload
-$ systemctl --user enable --now gomather
+$ systemctl --user enable --now mather-js
 ```
 
 You can get the logs like so:
 
 ```shell
-$ journalctl --user -u gomather
+$ journalctl --user -u mather-js
 ```
 
   </details>
@@ -130,10 +130,10 @@ $ journalctl --user -u gomather
 Now that the microservice is running, run a request to test it:
 
 ```shell
-grpcurl --plaintext -d '{"FirstSummand": 1, "SecondSummand": 3}' localhost:5000 com.pojtinger.felicitas.grpcExamples.Mather.Add
+grpcurl --plaintext --proto proto/mather.proto -d '{"FirstSummand": 1, "SecondSummand": 3}' localhost:5000 com.pojtinger.felicitas.grpcExamples.Mather.Add
 ```
 
-🚀 **That's it**! We hope you enjoy using gomather.
+🚀 **That's it**! We hope you enjoy using mather.js.
 
 ## Reference
 
@@ -141,14 +141,14 @@ grpcurl --plaintext -d '{"FirstSummand": 1, "SecondSummand": 3}' localhost:5000 
 
 You can set the multiplier, which multiplies each sum, using the `MULTIPLIER` environment variable.
 
-If you're on Kubernetes, also check out the available [Helm chart values](./charts/gomather/values.yaml) which you can use to adjust available resources, set the domain name and more.
+If you're on Kubernetes, also check out the available [Helm chart values](./charts/mather-js/values.yaml) which you can use to adjust available resources, set the domain name and more.
 
 ### gRPC API
 
-gomather exposes a gRPC API. You can find the relevant `.proto` files in [api/proto/v1](./api/proto/v1).
+mather.js exposes a gRPC API. You can find the relevant `.proto` files in [proto](./proto).
 
 ## License
 
-gomather (c) 2021 Felicitas Pojtinger and contributors
+mather.js (c) 2021 Felicitas Pojtinger and contributors
 
 SPDX-License-Identifier: AGPL-3.0
