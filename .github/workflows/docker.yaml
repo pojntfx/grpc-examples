@@ -78,4 +78,4 @@ jobs:
           charts_url: https://pojntfx.github.io/charts/
           owner: pojntfx
           repository: charts
-          branch: gh-pages
+          branch: main
