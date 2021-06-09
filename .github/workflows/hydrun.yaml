@@ -12,12 +12,16 @@ jobs:
     strategy:
       matrix:
         project:
-          - gomather
-          # - mather-rb
-          - mather-rs
-          - mather.js
-          - MatherNet
-          - pymather
+          - { dir: gomather, arch: amd64 }
+          - { dir: gomather, arch: arm64 }
+          # - { dir: mather-rb, arch: amd64 }
+          - { dir: mather-rs, arch: amd64 }
+          - { dir: mather-rs, arch: arm64 }
+          - { dir: mather.js, arch: amd64 }
+          - { dir: mather.js, arch: arm64 }
+          - { dir: MatherNet, arch: amd64 }
+          - { dir: pymather, arch: amd64 }
+          - { dir: pymather, arch: arm64 }
 
     steps:
       - name: Checkout
@@ -38,17 +42,17 @@ jobs:
           curl -L -o /tmp/hydrun https://github.com/pojntfx/hydrun/releases/download/latest/hydrun.linux-$(uname -m)
           sudo install /tmp/hydrun /usr/local/bin
       - name: Build with hydrun
-        working-directory: ${{ matrix.project }}
-        run: hydrun -a amd64 ./Hydrunfile
+        working-directory: ${{ matrix.project.dir }}
+        run: hydrun -a ${{ matrix.project.arch }} ./Hydrunfile
       - name: Fix permissions for output
-        working-directory: ${{ matrix.project }}
+        working-directory: ${{ matrix.project.dir }}
         run: sudo chown -R $USER out
       - name: Upload output
         uses: actions/upload-artifact@v2
         with:
-          name: staging-${{ matrix.project }}
+          name: staging-${{ matrix.project.dir }}
           path: |
-            ${{ matrix.project }}/out/release/*
+            ${{ matrix.project.dir }}/out/release/*
 
   publish-linux:
     runs-on: ubuntu-latest
