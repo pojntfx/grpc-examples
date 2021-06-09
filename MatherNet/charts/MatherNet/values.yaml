@@ -2,7 +2,7 @@ app:
   multiplier: 1
 
 meta:
-  image: pojntfx/mathernet:0.0.3
+  image: pojntfx/mathernet:0.0.4
   dev: false
 
 resources:

@@ -83,7 +83,7 @@ jobs:
           file: ${{ matrix.project.dir }}/Dockerfile
           platforms: ${{ matrix.project.arch }}
           push: true
-          tags: ${{ matrix.project.image }}
+          tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
   publish-linux:
