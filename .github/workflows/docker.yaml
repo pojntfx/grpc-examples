@@ -68,7 +68,7 @@ jobs:
           - {
               name: gomather,
               version: 0.0.1,
-              path: gomather/charts/gomather,
+              dir: gomather/charts/gomather,
               registry: ghcr.io,
             }
 
