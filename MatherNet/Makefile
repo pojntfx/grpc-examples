@@ -3,21 +3,17 @@ all: build
 build:
 	# Create and stage dynamically-linked binary
 	mkdir -p out
-	if [ "$$(uname -m)" = 'x86_64' ]; then\
-    	dotnet publish -c Release -r linux-x64 -p:PublishReadyToRun=true -p:PublishSingleFile=true -p:PublishTrimmed=true --self-contained true -p:IncludeNativeLibrariesForSelfExtract=true;\
-		cp bin/Release/net5.0/linux-x64/publish/MatherNet out/MatherNet.linux-$$(uname -m);\
-	elif [ "$$(uname -m)" = 'armv7l' ]; then\
-		dotnet publish -c Release -r linux-arm -p:PublishReadyToRun=true -p:PublishSingleFile=true -p:PublishTrimmed=true --self-contained true -p:IncludeNativeLibrariesForSelfExtract=true;\
-		cp bin/Release/net5.0/linux-arm/publish/MatherNet out/MatherNet.linux-$$(uname -m);\
-	else\
-		dotnet publish -c Release -r linux-arm64 -p:PublishReadyToRun=true -p:PublishSingleFile=true -p:PublishTrimmed=true --self-contained true -p:IncludeNativeLibrariesForSelfExtract=true;\
-		cp bin/Release/net5.0/linux-arm64/publish/MatherNet out/MatherNet.linux-$$(uname -m);\
-	fi;
+   	dotnet publish -c Release -r linux-x64 -p:PublishReadyToRun=true -p:PublishSingleFile=true -p:PublishTrimmed=true --self-contained true -p:IncludeNativeLibrariesForSelfExtract=true;\
+	cp bin/Release/net5.0/linux-x64/publish/MatherNet out/MatherNet.linux-x86_64;\
+	dotnet publish -c Release -r linux-arm -p:PublishReadyToRun=true -p:PublishSingleFile=true -p:PublishTrimmed=true --self-contained true -p:IncludeNativeLibrariesForSelfExtract=true;\
+	cp bin/Release/net5.0/linux-arm/publish/MatherNet out/MatherNet.linux-armv7l;\
+	dotnet publish -c Release -r linux-arm64 -p:PublishReadyToRun=true -p:PublishSingleFile=true -p:PublishTrimmed=true --self-contained true -p:IncludeNativeLibrariesForSelfExtract=true;\
+	cp bin/Release/net5.0/linux-arm64/publish/MatherNet out/MatherNet.linux-aarch64;\
 	
 release: build
 	# Stage dynamically-linked binaries
 	mkdir -p out/release
-	cp out/MatherNet.linux-$$(uname -m) out/release
+	cp out/MatherNet.linux-* out/release
 
 install: release
 	sudo install out/release/MatherNet.linux-$$(uname -m) /usr/local/bin/MatherNet

@@ -21,9 +21,7 @@ jobs:
           - { dir: mather.js, arch: amd64 }
           - { dir: mather.js, arch: arm64 }
           - { dir: mather.js, arch: arm/v7 }
-          - { dir: MatherNet, arch: amd64 }
-          - { dir: MatherNet, arch: arm64 }
-          - { dir: MatherNet, arch: arm/v7 }
+          - { dir: MatherNet, arch: amd64 } # Cross-compilation
           - { dir: pymather, arch: amd64 }
           - { dir: pymather, arch: arm64 }
           - { dir: pymather, arch: arm/v7 }
