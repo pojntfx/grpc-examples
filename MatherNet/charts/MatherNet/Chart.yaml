@@ -1,0 +1,13 @@
+apiVersion: v2
+name: MatherNet
+version: "0.0.1"
+description: Simple C# gRPC microservice that does math.
+type: application
+home: https://github.com/pojntfx/grpc-examples
+sources:
+  - https://github.com/pojntfx/grpc-examples.git
+maintainers:
+  - name: Felix Pojtinger
+    email: felix@pojtinger.com
+    url: https://felix.pojtinger.com
+appVersion: "0.0.1"
