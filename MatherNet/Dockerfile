@@ -12,7 +12,14 @@ RUN ./Hydrunfile
 
 # Extract the release
 RUN mkdir -p /out
-RUN cp out/release/MatherNet.linux-${TARGETPLATFORM} /out/MatherNet
+RUN if [ "${TARGETPLATFORM}" = "linux/amd64" ]; then \
+        RID=x86_64; \
+    elif [ "${TARGETPLATFORM}" = "linux/arm64" ]; then \
+        RID=aarch64; \
+    elif [ "${TARGETPLATFORM}" = "linux/arm/v7" ]; then \
+        RID=armv7l; \
+    fi \
+    && cp out/release/MatherNet.linux-${RID} /out/MatherNet
 
 # Release container
 FROM debian
