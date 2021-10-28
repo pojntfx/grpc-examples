@@ -12,15 +12,24 @@ jobs:
     strategy:
       matrix:
         project:
-          - { dir: gomather, arch: amd64 }
-          - { dir: gomather, arch: arm64 }
-          - { dir: mather-rs, arch: amd64 }
-          - { dir: mather-rs, arch: arm64 }
-          - { dir: mather.js, arch: amd64 }
-          - { dir: mather.js, arch: arm64 }
-          - { dir: MatherNet, arch: amd64 } # Cross-compilation
-          - { dir: pymather, arch: amd64 }
-          - { dir: pymather, arch: arm64 }
+          - dir: gomather
+            arch: amd64
+          - dir: gomather
+            arch: arm64
+          - dir: mather-rs
+            arch: amd64
+          - dir: mather-rs
+            arch: arm64
+          - dir: mather.js
+            arch: amd64
+          - dir: mather.js
+            arch: arm64
+          - dir: MatherNet
+            arch: amd64 # Cross-compilation
+          - dir: pymather
+            arch: amd64
+          - dir: pymather
+            arch: arm64
 
     steps:
       - name: Checkout

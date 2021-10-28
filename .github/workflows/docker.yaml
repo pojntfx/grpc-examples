@@ -12,31 +12,21 @@ jobs:
     strategy:
       matrix:
         project:
-          - {
-              dir: gomather,
-              image: pojntfx/gomather,
-              arch: "linux/amd64,linux/arm64/v8",
-            }
-          - {
-              dir: mather-rs,
-              image: pojntfx/mather-rs,
-              arch: "linux/amd64,linux/arm64/v8",
-            }
-          - {
-              dir: mather.js,
-              image: pojntfx/mather-js,
-              arch: "linux/amd64,linux/arm64/v8",
-            }
-          - {
-              dir: MatherNet,
-              image: pojntfx/mathernet,
-              arch: "linux/amd64,linux/arm64/v8",
-            }
-          - {
-              dir: pymather,
-              image: pojntfx/pymather,
-              arch: "linux/amd64,linux/arm64/v8",
-            }
+          - dir: gomather,
+            image: pojntfx/gomather,
+            arch: "linux/amd64,linux/arm64/v8",
+          - dir: mather-rs,
+            image: pojntfx/mather-rs,
+            arch: "linux/amd64,linux/arm64/v8",
+          - dir: mather.js,
+            image: pojntfx/mather-js,
+            arch: "linux/amd64,linux/arm64/v8",
+          - dir: MatherNet,
+            image: pojntfx/mathernet,
+            arch: "linux/amd64,linux/arm64/v8",
+          - dir: pymather,
+            image: pojntfx/pymather,
+            arch: "linux/amd64,linux/arm64/v8",
 
     steps:
       - name: Checkout
