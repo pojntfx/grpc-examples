@@ -12,19 +12,19 @@ jobs:
     strategy:
       matrix:
         project:
-          - dir: gomather,
+          - src: gomather,
             image: pojntfx/gomather,
             arch: "linux/amd64,linux/arm64/v8",
-          - dir: mather-rs,
+          - src: mather-rs,
             image: pojntfx/mather-rs,
             arch: "linux/amd64,linux/arm64/v8",
-          - dir: mather.js,
+          - src: mather.js,
             image: pojntfx/mather-js,
             arch: "linux/amd64,linux/arm64/v8",
-          - dir: MatherNet,
+          - src: MatherNet,
             image: pojntfx/mathernet,
             arch: "linux/amd64,linux/arm64/v8",
-          - dir: pymather,
+          - src: pymather,
             image: pojntfx/pymather,
             arch: "linux/amd64,linux/arm64/v8",
 
@@ -49,8 +49,8 @@ jobs:
       - name: Build image
         uses: docker/build-push-action@v2
         with:
-          context: ${{ matrix.project.dir }}
-          file: ${{ matrix.project.dir }}/Dockerfile
+          context: ${{ matrix.project.src }}
+          file: ${{ matrix.project.src }}/Dockerfile
           platforms: ${{ matrix.project.arch }}
           push: false
           tags: ${{ matrix.project.image }}:unstable
@@ -59,8 +59,8 @@ jobs:
         if: ${{ github.ref == 'refs/heads/main' }}
         uses: docker/build-push-action@v2
         with:
-          context: ${{ matrix.project.dir }}
-          file: ${{ matrix.project.dir }}/Dockerfile
+          context: ${{ matrix.project.src }}
+          file: ${{ matrix.project.src }}/Dockerfile
           platforms: ${{ matrix.project.arch }}
           push: true
           tags: ${{ matrix.project.image }}:unstable
@@ -69,8 +69,8 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/v')
         uses: docker/build-push-action@v2
         with:
-          context: ${{ matrix.project.dir }}
-          file: ${{ matrix.project.dir }}/Dockerfile
+          context: ${{ matrix.project.src }}
+          file: ${{ matrix.project.src }}/Dockerfile
           platforms: ${{ matrix.project.arch }}
           push: true
           tags: ${{ steps.meta.outputs.tags }}
