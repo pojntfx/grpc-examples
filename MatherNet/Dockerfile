@@ -1,5 +1,5 @@
 # Build container
-FROM mcr.microsoft.com/dotnet/sdk:5.0-buster-slim-amd64 AS build
+FROM mcr.microsoft.com/dotnet/sdk:5.0-bullseye-slim-amd64 AS build
 
 # Setup environment
 RUN mkdir -p /data
@@ -22,7 +22,7 @@ RUN if [ "${TARGETPLATFORM}" = "linux/amd64" ]; then \
     && cp out/release/MatherNet.linux-${RID} /out/MatherNet
 
 # Release container
-FROM debian
+FROM debian:bullseye
 
 # Add certificates
 RUN apt update
