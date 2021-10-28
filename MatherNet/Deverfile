@@ -1,5 +1,5 @@
 # Build container
-FROM debian
+FROM debian:bullseye
 
 # Setup environment
 RUN mkdir -p /data

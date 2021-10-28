@@ -17,19 +17,24 @@ jobs:
         project:
           - src: gomather
             image: ghcr.io/pojntfx/gomather
-            arch: "linux/amd64,linux/arm64/v8"
+            arch: "linux/amd64"
+            # arch: "linux/amd64,linux/arm64/v8"
           - src: mather-rs
             image: ghcr.io/pojntfx/mather-rs
-            arch: "linux/amd64,linux/arm64/v8"
+            arch: "linux/amd64"
+            # arch: "linux/amd64,linux/arm64/v8"
           - src: mather.js
             image: ghcr.io/pojntfx/mather-js
-            arch: "linux/amd64,linux/arm64/v8"
+            arch: "linux/amd64"
+            # arch: "linux/amd64,linux/arm64/v8"
           - src: MatherNet
             image: ghcr.io/pojntfx/mathernet
-            arch: "linux/amd64,linux/arm64/v8"
+            arch: "linux/amd64"
+            # arch: "linux/amd64,linux/arm64/v8"
           - src: pymather
             image: ghcr.io/pojntfx/pymather
-            arch: "linux/amd64,linux/arm64/v8"
+            arch: "linux/amd64"
+            # arch: "linux/amd64,linux/arm64/v8"
 
     steps:
       - name: Checkout

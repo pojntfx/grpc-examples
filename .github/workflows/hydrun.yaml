@@ -15,30 +15,30 @@ jobs:
           - src: gomather
             arch: amd64
             os: debian:bullseye
-          - src: gomather
-            arch: arm64
+          # - src: gomather
+          #   arch: arm64
             os: debian:bullseye
           - src: mather-rs
             arch: amd64
             os: debian:bullseye
-          - src: mather-rs
-            arch: arm64
-            os: debian:bullseye
+          # - src: mather-rs
+          #   arch: arm64
+          #   os: debian:bullseye
           - src: mather.js
             arch: amd64
             os: debian:bullseye
-          - src: mather.js
-            arch: arm64
-            os: debian:bullseye
+          # - src: mather.js
+          #   arch: arm64
+          #   os: debian:bullseye
           - src: MatherNet
             arch: amd64 # Cross-compilation
             os: debian:bullseye
           - src: pymather
             arch: amd64
             os: debian:bullseye
-          - src: pymather
-            arch: arm64
-            os: debian:bullseye
+          # - src: pymather
+          #   arch: arm64
+          #   os: debian:bullseye
 
     steps:
       - name: Checkout

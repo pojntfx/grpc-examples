@@ -1,5 +1,5 @@
 # Build container
-FROM debian AS build
+FROM debian:bullseye AS build
 
 # Setup environment
 RUN mkdir -p /data
@@ -14,7 +14,7 @@ RUN mkdir -p /out
 RUN cp out/release/mather-rs.linux-$(uname -m) /out/mather-rs
 
 # Release container
-FROM debian
+FROM debian:bullseye
 
 # Add certificates
 RUN apt update
