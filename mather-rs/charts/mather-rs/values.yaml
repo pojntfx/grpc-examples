@@ -2,7 +2,7 @@ app:
   multiplier: 1
 
 meta:
-  image: pojntfx/mather-rs:0.0.4
+  image: ghcr.io/pojntfx/mather-rs:0.0.4
   dev: false
 
 resources:

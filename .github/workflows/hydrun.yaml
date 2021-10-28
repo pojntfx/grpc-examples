@@ -14,31 +14,31 @@ jobs:
         project:
           - src: gomather
             arch: amd64
-            os: golang:bullseye
+            os: debian:bullseye
           - src: gomather
             arch: arm64
-            os: golang:bullseye
+            os: debian:bullseye
           - src: mather-rs
             arch: amd64
-            os: golang:bullseye
+            os: debian:bullseye
           - src: mather-rs
             arch: arm64
-            os: golang:bullseye
+            os: debian:bullseye
           - src: mather.js
             arch: amd64
-            os: golang:bullseye
+            os: debian:bullseye
           - src: mather.js
             arch: arm64
-            os: golang:bullseye
+            os: debian:bullseye
           - src: MatherNet
             arch: amd64 # Cross-compilation
-            os: golang:bullseye
+            os: debian:bullseye
           - src: pymather
             arch: amd64
-            os: golang:bullseye
+            os: debian:bullseye
           - src: pymather
             arch: arm64
-            os: golang:bullseye
+            os: debian:bullseye
 
     steps:
       - name: Checkout
@@ -53,7 +53,7 @@ jobs:
           sudo install /tmp/hydrun /usr/local/bin
       - name: Build with hydrun
         working-directory: ${{ matrix.project.src }}
-        run: hydrun -o ${{ matrix.target.os }} -a ${{ matrix.project.arch }} ./Hydrunfile
+        run: hydrun -o ${{ matrix.project.os }} -a ${{ matrix.project.arch }} ./Hydrunfile
       - name: Fix permissions for output
         working-directory: ${{ matrix.project.src }}
         run: sudo chown -R $USER out
