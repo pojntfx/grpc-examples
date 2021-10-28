@@ -17,7 +17,7 @@ jobs:
             os: debian:bullseye
           # - src: gomather
           #   arch: arm64
-            os: debian:bullseye
+          #   os: debian:bullseye
           - src: mather-rs
             arch: amd64
             os: debian:bullseye
