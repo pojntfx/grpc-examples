@@ -9,23 +9,26 @@ on:
 jobs:
   build-linux:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
     strategy:
       matrix:
         project:
           - src: gomather,
-            image: pojntfx/gomather,
+            image: ghcr.io/pojntfx/gomather,
             arch: "linux/amd64,linux/arm64/v8",
           - src: mather-rs,
-            image: pojntfx/mather-rs,
+            image: ghcr.io/pojntfx/mather-rs,
             arch: "linux/amd64,linux/arm64/v8",
           - src: mather.js,
-            image: pojntfx/mather-js,
+            image: ghcr.io/pojntfx/mather-js,
             arch: "linux/amd64,linux/arm64/v8",
           - src: MatherNet,
-            image: pojntfx/mathernet,
+            image: ghcr.io/pojntfx/mathernet,
             arch: "linux/amd64,linux/arm64/v8",
           - src: pymather,
-            image: pojntfx/pymather,
+            image: ghcr.io/pojntfx/pymather,
             arch: "linux/amd64,linux/arm64/v8",
 
     steps:
@@ -44,8 +47,9 @@ jobs:
       - name: Login to Docker Hub
         uses: docker/login-action@v1
         with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_TOKEN }}
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
       - name: Build image
         uses: docker/build-push-action@v2
         with:

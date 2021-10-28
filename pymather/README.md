@@ -22,7 +22,7 @@ $ helm repo add pojntfx https://pojntfx.github.io/charts/
 You can get the Docker container like so:
 
 ```shell
-$ docker pull pojntfx/pymather
+$ docker pull ghcr.io/pojntfx/pymather
 ```
 
 ### Natively
@@ -75,7 +75,7 @@ $ docker run \
     --restart always \
     -p 5000:5000 \
     -e MULTIPLIER=1 \
-    pojntfx/pymather
+    ghcr.io/pojntfx/pymather
 ```
 
 The logs are available like so:

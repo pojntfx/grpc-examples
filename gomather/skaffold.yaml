@@ -6,7 +6,7 @@ profiles:
   - name: prod
     build:
       artifacts:
-        - image: pojntfx/gomather
+        - image: ghcr.io/pojntfx/gomather
           context: .
           docker:
             dockerfile: Dockerfile
@@ -18,13 +18,13 @@ profiles:
           - name: gomather
             chartPath: charts/gomather
             artifactOverrides:
-              meta.image: pojntfx/gomather
+              meta.image: ghcr.io/pojntfx/gomather
             setValueTemplates:
               app.multiplier: "{{ .MULTIPLIER }}"
   - name: dev
     build:
       artifacts:
-        - image: pojntfx/gomather-dev
+        - image: ghcr.io/pojntfx/gomather-dev
           context: .
           docker:
             dockerfile: Deverfile
@@ -39,7 +39,7 @@ profiles:
           - name: gomather-dev
             chartPath: charts/gomather
             artifactOverrides:
-              meta.image: pojntfx/gomather-dev
+              meta.image: ghcr.io/pojntfx/gomather-dev
             setValues:
               meta.dev: true
             setValueTemplates:

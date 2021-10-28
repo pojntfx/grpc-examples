@@ -6,7 +6,7 @@ profiles:
   - name: prod
     build:
       artifacts:
-        - image: pojntfx/pymather
+        - image: ghcr.io/pojntfx/pymather
           context: .
           docker:
             dockerfile: Dockerfile
@@ -18,13 +18,13 @@ profiles:
           - name: pymather
             chartPath: charts/pymather
             artifactOverrides:
-              meta.image: pojntfx/pymather
+              meta.image: ghcr.io/pojntfx/pymather
             setValueTemplates:
               app.multiplier: "{{ .MULTIPLIER }}"
   - name: dev
     build:
       artifacts:
-        - image: pojntfx/pymather-dev
+        - image: ghcr.io/pojntfx/pymather-dev
           context: .
           docker:
             dockerfile: Deverfile
@@ -39,7 +39,7 @@ profiles:
           - name: pymather-dev
             chartPath: charts/pymather
             artifactOverrides:
-              meta.image: pojntfx/pymather-dev
+              meta.image: ghcr.io/pojntfx/pymather-dev
             setValues:
               meta.dev: true
             setValueTemplates:

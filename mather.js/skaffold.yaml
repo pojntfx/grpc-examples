@@ -6,7 +6,7 @@ profiles:
   - name: prod
     build:
       artifacts:
-        - image: pojntfx/mather-js
+        - image: ghcr.io/pojntfx/mather-js
           context: .
           docker:
             dockerfile: Dockerfile
@@ -18,13 +18,13 @@ profiles:
           - name: mather-js
             chartPath: charts/mather-js
             artifactOverrides:
-              meta.image: pojntfx/mather-js
+              meta.image: ghcr.io/pojntfx/mather-js
             setValueTemplates:
               app.multiplier: "{{ .MULTIPLIER }}"
   - name: dev
     build:
       artifacts:
-        - image: pojntfx/mather-js-dev
+        - image: ghcr.io/pojntfx/mather-js-dev
           context: .
           docker:
             dockerfile: Deverfile
@@ -39,7 +39,7 @@ profiles:
           - name: mather-js-dev
             chartPath: charts/mather-js
             artifactOverrides:
-              meta.image: pojntfx/mather-js-dev
+              meta.image: ghcr.io/pojntfx/mather-js-dev
             setValues:
               meta.dev: true
             setValueTemplates:

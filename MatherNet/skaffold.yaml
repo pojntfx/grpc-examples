@@ -6,7 +6,7 @@ profiles:
   - name: prod
     build:
       artifacts:
-        - image: pojntfx/mathernet
+        - image: ghcr.io/pojntfx/mathernet
           context: .
           docker:
             dockerfile: Dockerfile
@@ -18,13 +18,13 @@ profiles:
           - name: mathernet
             chartPath: charts/MatherNet
             artifactOverrides:
-              meta.image: pojntfx/mathernet
+              meta.image: ghcr.io/pojntfx/mathernet
             setValueTemplates:
               app.multiplier: "{{ .MULTIPLIER }}"
   - name: dev
     build:
       artifacts:
-        - image: pojntfx/mathernet-dev
+        - image: ghcr.io/pojntfx/mathernet-dev
           context: .
           docker:
             dockerfile: Deverfile
@@ -39,7 +39,7 @@ profiles:
           - name: mathernet-dev
             chartPath: charts/MatherNet
             artifactOverrides:
-              meta.image: pojntfx/mathernet-dev
+              meta.image: ghcr.io/pojntfx/mathernet-dev
             setValues:
               meta.dev: true
             setValueTemplates:
