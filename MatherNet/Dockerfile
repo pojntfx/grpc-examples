@@ -26,7 +26,7 @@ FROM debian
 
 # Add certificates
 RUN apt update
-RUN apt install -y ca-certificates libicu63 libgssapi-krb5-2
+RUN apt install -y ca-certificates libicu67 libgssapi-krb5-2
 
 # Add the release
 COPY --from=build /out/MatherNet /usr/local/bin/MatherNet

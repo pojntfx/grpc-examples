@@ -12,24 +12,33 @@ jobs:
     strategy:
       matrix:
         project:
-          - dir: gomather
+          - src: gomather
             arch: amd64
-          - dir: gomather
+            os: golang:bullseye
+          - src: gomather
             arch: arm64
-          - dir: mather-rs
+            os: golang:bullseye
+          - src: mather-rs
             arch: amd64
-          - dir: mather-rs
+            os: golang:bullseye
+          - src: mather-rs
             arch: arm64
-          - dir: mather.js
+            os: golang:bullseye
+          - src: mather.js
             arch: amd64
-          - dir: mather.js
+            os: golang:bullseye
+          - src: mather.js
             arch: arm64
-          - dir: MatherNet
+            os: golang:bullseye
+          - src: MatherNet
             arch: amd64 # Cross-compilation
-          - dir: pymather
+            os: golang:bullseye
+          - src: pymather
             arch: amd64
-          - dir: pymather
+            os: golang:bullseye
+          - src: pymather
             arch: arm64
+            os: golang:bullseye
 
     steps:
       - name: Checkout
@@ -43,17 +52,17 @@ jobs:
           curl -L -o /tmp/hydrun "https://github.com/pojntfx/hydrun/releases/latest/download/hydrun.linux-$(uname -m)"
           sudo install /tmp/hydrun /usr/local/bin
       - name: Build with hydrun
-        working-directory: ${{ matrix.project.dir }}
-        run: hydrun -a ${{ matrix.project.arch }} ./Hydrunfile
+        working-directory: ${{ matrix.project.src }}
+        run: hydrun -o ${{ matrix.target.os }} -a ${{ matrix.project.arch }} ./Hydrunfile
       - name: Fix permissions for output
-        working-directory: ${{ matrix.project.dir }}
+        working-directory: ${{ matrix.project.src }}
         run: sudo chown -R $USER out
       - name: Upload output
         uses: actions/upload-artifact@v2
         with:
-          name: staging-${{ matrix.project.dir }}
+          name: staging-${{ matrix.project.src }}
           path: |
-            ${{ matrix.project.dir }}/out/release/*
+            ${{ matrix.project.src }}/out/release/*
 
   publish-linux:
     runs-on: ubuntu-latest
